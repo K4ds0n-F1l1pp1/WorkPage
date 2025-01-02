@@ -25,6 +25,7 @@ function listVeiculos($pdo) {
     return $statement->fetchAll(PDO::FETCH_ASSOC);
 }
 
+// Cria os motoristas:
 try {
     $pdo = new PDO($dsnn);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -38,6 +39,7 @@ try {
     die ("Erro ao procurar banco de dados.". $e->getMessage());
 }
 
+// Listar os motoristas:
 function listMotoristas($pdo) {
     $statement = $pdo->query("SELECT * FROM motoristas");
     return $statement->fetchAll(PDO::FETCH_ASSOC);
