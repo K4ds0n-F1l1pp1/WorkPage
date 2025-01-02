@@ -1,0 +1,8 @@
+Lembrar de ler o llivro e ver os vídeos de CRUD.
+
+Create
+Read
+Update
+Delete
+
+Fazer pelo menos o do sqlite, que esse já tá manjado.
