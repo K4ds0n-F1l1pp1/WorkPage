@@ -1,6 +1,6 @@
 <?php
 
-$dsn = 'sqlite:veiculos.db';
+$dsn = 'sqlite:' . __DIR__ . 'veiculos.db';
 
 try {
     $pdoVeiculos = new PDO($dsn);

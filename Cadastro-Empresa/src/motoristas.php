@@ -1,6 +1,6 @@
 <?php
 
-$dsnn = 'sqlite:motoristas.db';
+$dsnn = 'sqlite:' . __DIR__ . 'motoristas.db';
 
 // Cria os motoristas:
 try {
