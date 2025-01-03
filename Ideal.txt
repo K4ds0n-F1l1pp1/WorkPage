@@ -1,0 +1,449 @@
+<?php
+// File: module/Application/src/Application/Entity/Vehicle.php
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="vehicles")
+ */
+class Vehicle
+{
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /** @ORM\Column(type="string", length=7, nullable=false) */
+    private $plate;
+
+    /** @ORM\Column(type="string", length=30, nullable=true) */
+    private $renavam;
+
+    /** @ORM\Column(type="string", length=20, nullable=false) */
+    private $model;
+
+    /** @ORM\Column(type="string", length=20, nullable=false) */
+    private $brand;
+
+    /** @ORM\Column(type="integer", nullable=false) */
+    private $year;
+
+    /** @ORM\Column(type="string", length=20, nullable=false) */
+    private $color;
+
+    // Getters and setters...
+}
+
+// File: module/Application/src/Application/Entity/Driver.php
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="drivers")
+ */
+class Driver
+{
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /** @ORM\Column(type="string", length=200, nullable=false) */
+    private $name;
+
+    /** @ORM\Column(type="string", length=20, nullable=false) */
+    private $rg;
+
+    /** @ORM\Column(type="string", length=11, nullable=false) */
+    private $cpf;
+
+    /** @ORM\Column(type="string", length=20, nullable=true) */
+    private $phone;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Vehicle")
+     * @ORM\JoinColumn(name="vehicle_id", referencedColumnName="id")
+     */
+    private $vehicle;
+
+    // Getters and setters...
+}
+
+// File: module/Application/src/Application/Controller/VehicleController.php
+namespace Application\Controller;
+
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
+use Doctrine\ORM\EntityManager;
+
+class VehicleController extends AbstractActionController
+{
+    private $entityManager;
+
+    public function __construct(EntityManager $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
+    public function reportAction()
+    {
+        $vehicles = $this->entityManager->getRepository('Application\\Entity\\Vehicle')->findAll();
+        return new ViewModel(['vehicles' => $vehicles]);
+    }
+}
+
+// File: module/Application/src/Application/Controller/DriverController.php
+namespace Application\Controller;
+
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
+use Doctrine\ORM\EntityManager;
+
+class DriverController extends AbstractActionController
+{
+    private $entityManager;
+
+    public function __construct(EntityManager $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
+    public function reportAction()
+    {
+        $drivers = $this->entityManager->getRepository('Application\\Entity\\Driver')->findAll();
+        return new ViewModel(['drivers' => $drivers]);
+    }
+}
+
+// File: module/Application/config/module.config.php
+return [
+    'doctrine' => [
+        'driver' => [
+            'application_entities' => [
+                'class' => Doctrine\ORM\Mapping\Driver\AnnotationDriver::class,
+                'paths' => [__DIR__ . '/../src/Application/Entity']
+            ],
+            'orm_default' => [
+                'drivers' => [
+                    'Application\Entity' => 'application_entities',
+                ],
+            ],
+        ],
+    ],
+    'router' => [
+        'routes' => [
+            'vehicle' => [
+                'type' => 'segment',
+                'options' => [
+                    'route' => '/vehicle[/:action[/:id]]',
+                    'defaults' => [
+                        'controller' => Controller\VehicleController::class,
+                        'action' => 'index',
+                    ],
+                ],
+            ],
+            'driver' => [
+                'type' => 'segment',
+                'options' => [
+                    'route' => '/driver[/:action[/:id]]',
+                    'defaults' => [
+                        'controller' => Controller\DriverController::class,
+                        'action' => 'index',
+                    ],
+                ],
+            ],
+        ],
+    ],
+];
+
+// File: module/Application/view/application/vehicle/report.phtml
+<h1>Vehicle Report</h1>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Plate</th>
+            <th>Renavam</th>
+            <th>Model</th>
+            <th>Brand</th>
+            <th>Year</th>
+            <th>Color</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($vehicles as $vehicle): ?>
+            <tr>
+                <td><?= $vehicle->getId() ?></td>
+                <td><?= $vehicle->getPlate() ?></td>
+                <td><?= $vehicle->getRenavam() ?></td>
+                <td><?= $vehicle->getModel() ?></td>
+                <td><?= $vehicle->getBrand() ?></td>
+                <td><?= $vehicle->getYear() ?></td>
+                <td><?= $vehicle->getColor() ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+
+// File: module/Application/view/application/driver/report.phtml
+<h1>Driver Report</h1>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>RG</th>
+            <th>CPF</th>
+            <th>Phone</th>
+            <th>Vehicle</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($drivers as $driver): ?>
+            <tr>
+                <td><?= $driver->getId() ?></td>
+                <td><?= $driver->getName() ?></td>
+                <td><?= $driver->getRg() ?></td>
+                <td><?= $driver->getCpf() ?></td>
+                <td><?= $driver->getPhone() ?></td>
+                <td><?= $driver->getVehicle() ? $driver->getVehicle()->getPlate() : 'N/A' ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+
+
+
+Utilizando SQLite:
+
+// Estrutura inicial do projeto para SQLite, PHP, HTML e CSS com estilo pop-art.
+
+// Arquivo: init.php
+<?php
+$db = new PDO('sqlite:db/database.sqlite');
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+// Criação das tabelas, caso não existam
+$db->exec("CREATE TABLE IF NOT EXISTS vehicles (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    plate TEXT NOT NULL,
+    renavam TEXT,
+    model TEXT NOT NULL,
+    brand TEXT NOT NULL,
+    year INTEGER NOT NULL,
+    color TEXT NOT NULL
+);");
+
+$db->exec("CREATE TABLE IF NOT EXISTS drivers (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    rg TEXT NOT NULL,
+    cpf TEXT NOT NULL,
+    phone TEXT,
+    vehicle_id INTEGER,
+    FOREIGN KEY(vehicle_id) REFERENCES vehicles(id)
+);");
+?>
+
+// Arquivo: index.php
+<?php include 'init.php'; ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Vehicle & Driver Management</title>
+</head>
+<body>
+    <header class="header">
+        <h1>Vehicle & Driver Management</h1>
+        <nav>
+            <a href="vehicle.php">Manage Vehicles</a>
+            <a href="driver.php">Manage Drivers</a>
+            <a href="report.php">Reports</a>
+        </nav>
+    </header>
+    <main class="main">
+        <h2>Welcome</h2>
+        <p>Use the navigation above to manage vehicles and drivers or view reports.</p>
+    </main>
+    <footer class="footer">
+        <p>&copy; 2025 Vehicle Management System</p>
+    </footer>
+</body>
+</html>
+
+// Arquivo: vehicle.php
+<?php include 'init.php'; ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Manage Vehicles</title>
+</head>
+<body>
+    <header class="header">
+        <h1>Manage Vehicles</h1>
+        <nav>
+            <a href="index.php">Home</a>
+            <a href="driver.php">Manage Drivers</a>
+            <a href="report.php">Reports</a>
+        </nav>
+    </header>
+    <main class="main">
+        <h2>Vehicles</h2>
+        <form action="vehicle.php" method="post">
+            <label for="plate">Plate:</label>
+            <input type="text" id="plate" name="plate" maxlength="7" required>
+
+            <label for="renavam">Renavam:</label>
+            <input type="text" id="renavam" name="renavam" maxlength="30">
+
+            <label for="model">Model:</label>
+            <input type="text" id="model" name="model" maxlength="20" required>
+
+            <label for="brand">Brand:</label>
+            <input type="text" id="brand" name="brand" maxlength="20" required>
+
+            <label for="year">Year:</label>
+            <input type="number" id="year" name="year" required>
+
+            <label for="color">Color:</label>
+            <input type="text" id="color" name="color" maxlength="20" required>
+
+            <button type="submit">Add Vehicle</button>
+        </form>
+        <h3>Existing Vehicles</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Plate</th>
+                    <th>Model</th>
+                    <th>Brand</th>
+                    <th>Year</th>
+                    <th>Color</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    $stmt = $db->prepare("INSERT INTO vehicles (plate, renavam, model, brand, year, color) VALUES (?, ?, ?, ?, ?, ?)");
+                    $stmt->execute([
+                        $_POST['plate'],
+                        $_POST['renavam'],
+                        $_POST['model'],
+                        $_POST['brand'],
+                        $_POST['year'],
+                        $_POST['color']
+                    ]);
+                }
+
+                $vehicles = $db->query('SELECT * FROM vehicles')->fetchAll(PDO::FETCH_ASSOC);
+                foreach ($vehicles as $vehicle) {
+                    echo "<tr>
+                            <td>{$vehicle['id']}</td>
+                            <td>{$vehicle['plate']}</td>
+                            <td>{$vehicle['model']}</td>
+                            <td>{$vehicle['brand']}</td>
+                            <td>{$vehicle['year']}</td>
+                            <td>{$vehicle['color']}</td>
+                          </tr>";
+                }
+                ?>
+            </tbody>
+        </table>
+    </main>
+    <footer class="footer">
+        <p>&copy; 2025 Vehicle Management System</p>
+    </footer>
+</body>
+</html>
+
+// Arquivo: css/styles.css
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f0f0f0;
+}
+
+.header {
+    background: #ff4081;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+
+.header nav a {
+    color: white;
+    margin: 0 1rem;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.main {
+    padding: 2rem;
+}
+
+.footer {
+    background: #303030;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+table, th, td {
+    border: 1px solid #ccc;
+}
+
+th, td {
+    padding: 0.5rem;
+    text-align: left;
+}
+
+form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    max-width: 600px;
+    margin: auto;
+}
+
+form label {
+    font-weight: bold;
+}
+
+form input, form button {
+    padding: 0.5rem;
+    font-size: 1rem;
+}
+
+form button {
+    grid-column: span 2;
+    background: #ff4081;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
