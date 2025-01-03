@@ -1,0 +1,1 @@
+O ZendFramework é um framework de PHP que auxilia na criação de Banco de Dados junto com Doctrine e ORM.
