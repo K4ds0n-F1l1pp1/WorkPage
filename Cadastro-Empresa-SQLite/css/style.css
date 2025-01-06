@@ -1,84 +1,18 @@
-* {
-    margin: 0;
-    padding: 0;
+:root {
+    --cor_div: aliceblue;
+    --cor_nav_itens: black;
 }
 
-body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background: black;
+.navegacao_drivers {
+    background-color: var(--cor_div);
+    padding: 24px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
 }
 
-p {
-    color:#ccc
-}
-
-.header {
-    background: navy;
-    color: white;
-    padding: 2rem;
-    text-align: center;
-}
-
-.header nav a {
-    color: white;
-    margin: 0 1rem;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.main {
-    padding: 2rem;
-}
-
-.footer {
-    background: #303030;
-    color: white;
-    text-align: center;
-    padding: 1rem;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
-}
-
-table, th, td {
-    border: 1px solid #ccc;
-}
-
-th, tr:first-child {
-    padding: 0.5rem;
-    text-align: left;
-}
-
-form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    max-width: 600px;
-    margin: auto;
-}
-
-form label {
-    font-weight: bold;
-}
-
-form input, form button {
-    padding: 0.5rem;
-    font-size: 1rem;
-}
-
-form button {
-    grid-column: span 2;
-    background: #ff4081;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
+.navegacao_drivers a {
+    display: contents;
+    justify-content: space-evenly;
+    text-decoration: solid black;
+    color: var(--cor_nav_itens);
 }

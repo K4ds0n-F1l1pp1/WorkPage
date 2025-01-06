@@ -7,17 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciamento de Veículos</title>
     <link rel="shortcut icon" href="imagens/logistica.png">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <header class="header">
+    <header class="header_veiculos">
         <h1>Gerenciamento de Veículos</h1>
         <nav>
             <a href="/index.php">Home</a>
             <a href="drivers.php">Gerenciar Motoristas</a>
-            <a href="report.php">Reports</a>
+            <a href="reports.php">Reports</a>
         </nav>
     </header>
-    <main class="main">
+    <main class="main.veiculos">
     <h2>Veículos</h2>
         <form action="veiculos.php" method="post">
             <label for="Placa"><strong>Placa:</strong></label>
@@ -82,7 +83,7 @@
             </tbody>
         </table>
     </main>
-    <footer class="footer">
+    <footer class="footer.veiculos">
         <p>&copy; Gerenciador de Riscos e Rotas - 2025</p>
     </footer>
 </body>

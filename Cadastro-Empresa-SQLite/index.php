@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="shortcut icon" href="/src/imagens/caminhao-de-padaria.png">
+    <link rel="shortcut icon" href="imagens/caminhao-de-padaria.png">
     <title>Página Inicial</title>
 </head>
 <body>
@@ -16,12 +16,14 @@
         <nav>
             <a href="src/veiculos.php">Gerenciar Veículos</a>
             <a href="src/drivers.php">Gerenciar Motoristas</a>
-            <a href="report.php">Reports</a>
+            <a href="reports.php">Reports</a>
         </nav>
     </header>
+
     <main class="main">
         <p>Utilize os comandos para gerenciar Veículos e Motoristas e dar Reports.</p><br>
     </main>
+
     <footer class="footer">
         <p>&copy; Gerenciador de Riscos e Rotas - 2025</p>
     </footer>
