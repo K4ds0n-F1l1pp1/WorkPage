@@ -6,38 +6,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciamento de Veículos</title>
+    <link rel="shortcut icon" href="imagens/logistica.png">
 </head>
 <body>
-    <h<header class="header">
+    <header class="header">
         <h1>Gerenciamento de Veículos</h1>
         <nav>
             <a href="/index.php">Home</a>
-            <a href="driver.php">Manage Drivers</a>
+            <a href="drivers.php">Gerenciar Motoristas</a>
             <a href="report.php">Reports</a>
         </nav>
     </header>
     <main class="main">
     <h2>Veículos</h2>
-        <form action="vehicle.php" method="post">
-            <label for="Placa">Placa:</label>
+        <form action="veiculos.php" method="post">
+            <label for="Placa"><strong>Placa:</strong></label>
             <input type="char(7)" id="plate" name="placa" maxlength="7" required>
 
-            <label for="renavam">Renavam:</label>
+            <label for="renavam"><strong>Renavam:</strong>:</label>
             <input type="char(20)" id="renavam" name="renavam" maxlength="30">
 
-            <label for="model">Modelo:</label>
+            <label for="model"><strong>Modelo:</strong></label>
             <input type="char(20)" id="model" name="modelo" maxlength="20" required>
 
-            <label for="brand">Marca::</label>
+            <label for="brand"><strong>Marca:</strong></label>
             <input type="char(20)" id="brand" name="marca" maxlength="20" required>
 
-            <label for="year">Ano:</label>
+            <label for="year"><strong>Ano:</strong></label>
             <input type="year" id="year" name="ano" required>
 
-            <label for="color">Cor:</label>
+            <label for="color"><strong>Cor:</strong></label>
             <input type="char(20)" id="color" name="cor" maxlength="20" required>
 
-            <button type="submit">Adicionar Veículo</button>
+            <button type="submit" href="sucesso.php">Adicionar Veículo</button>
         </form>
 
         <h3>Veículos Disponíveis</h3>
@@ -82,7 +83,7 @@
         </table>
     </main>
     <footer class="footer">
-        <p>&copy; 2025 Vehicle Management System</p>
+        <p>&copy; Gerenciador de Riscos e Rotas - 2025</p>
     </footer>
 </body>
 </html>
