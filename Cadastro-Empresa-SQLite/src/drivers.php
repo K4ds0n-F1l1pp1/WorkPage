@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciamento de Motoristas</title>
-    <link rel="shortcut icon" href="./imagens/logistica.png">
+    <link rel="shortcut icon" href="/imagens/logistica.png">
     <link rel="stylesheet" href="/css/style_drivers.css">
     <link rel="stylesheet" href="/css/style_table.css">
 </head>
@@ -48,8 +48,6 @@
             <input type="CHAR(20)" id="telefone" name="telefone" maxlength="20" required>
 
             <button type="submit">Adicionar Motorista</button>
-            
-            <a href="removerMotorista.php?id= <?= $drivers['id']; ?>" >Excluir</a>
         </form>
         <h3>Motoristas cadastrados</h3>
 
@@ -87,9 +85,14 @@
                             </tr>";
                     }
                     ?>
-                </tbody>
             </table>
         </div>
+        <h1>Excluir Registro</h1>
+    <form method="POST" action="">
+        <label for="removerMotoristas.php">Digite o ID que deseja excluir:</label>
+        <input type="number" name="id" id="id" required>
+        <button type="submit">Excluir</button>
+    </form>
     </main>
     <br>
     <br>

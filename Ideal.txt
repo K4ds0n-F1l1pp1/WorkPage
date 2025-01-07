@@ -449,3 +449,55 @@ form button {
     cursor: pointer;
     font-weight: bold;
 }
+
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excluir Registro</title>
+</head>
+<body>
+    <h1>Excluir Registro</h1>
+    <form method="POST" action="">
+        <label for="id">Digite o ID que deseja excluir:</label>
+        <input type="number" name="id" id="id" required>
+        <button type="submit">Excluir</button>
+    </form>
+
+    <?php
+    // Código PHP para tratar o formulário
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Captura o ID do formulário
+        $id = $_POST['id'];
+
+        // Conexão com o banco SQLite
+        try {
+            $pdo = new PDO('sqlite:meu_banco.db');
+
+            // Verifica se o ID existe antes de excluir
+            $queryCheck = $pdo->prepare('SELECT * FROM usuarios WHERE id = :id');
+            $queryCheck->bindValue(':id', $id, PDO::PARAM_INT);
+            $queryCheck->execute();
+
+            if ($queryCheck->rowCount() > 0) {
+                // Exclui o registro
+                $queryDelete = $pdo->prepare('DELETE FROM usuarios WHERE id = :id');
+                $queryDelete->bindValue(':id', $id, PDO::PARAM_INT);
+                $queryDelete->execute();
+
+                echo "<p style='color: green;'>Registro com ID $id foi excluído com sucesso!</p>";
+            } else {
+                echo "<p style='color: red;'>Registro com ID $id não encontrado.</p>";
+            }
+        } catch (PDOException $e) {
+            echo "<p style='color: red;'>Erro ao acessar o banco de dados: " . $e->getMessage() . "</p>";
+        }
+    }
+    ?>
+</body>
+</html>
