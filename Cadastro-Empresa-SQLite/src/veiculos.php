@@ -11,15 +11,28 @@
     <link rel="stylesheet" href="/css/style_table.css">
 </head>
 <body>
-    <header class="header_veiculos">
+<header class="header">
         <h1>Gerenciamento de Veículos</h1>
+    <div class="navegacao_drivers">
         <nav>
-            <a href="/index.php">Home</a>
-            <a href="drivers.php">Gerenciar Motoristas</a>
-            <a href="reports.php">Reports</a>
+            <ul>
+                <li>
+                    <button onclick="location.href='/index.php'" type="button">
+                    Home</button>
+                </li>
+                <li>
+                    <button onclick="location.href='drivers.php'" type="button">
+                    Gerenciar Veículos</button>
+                </li>
+                <li>
+                    <button onclick="location.href='reports.php'" type="button">
+                    Reports</button>
+                </li>
+            </ul>
         </nav>
+    </div>
     </header>
-    <main class="main.veiculos">
+    <main class="main">
     <h2>Veículos</h2>
         <form action="veiculos.php" method="post">
             <label for="Placa"><strong>Placa:</strong></label>
@@ -86,6 +99,11 @@
             </tbody>
         </table>
     </main>
+    <form method="POST" action="removerVeiculo.php">
+        <label for="removerMotoristas.php">Digite o ID que deseja excluir:</label>
+        <input type="number" name="id" id="id" required>
+        <button type="submit">Excluir</button>
+    </form>
     <footer class="footer">
         <p>&copy; Gerenciador de Riscos e Rotas - 2025</p>
     </footer>

@@ -88,7 +88,7 @@
             </table>
         </div>
         <h1>Excluir Registro</h1>
-    <form method="POST" action="">
+    <form method="POST" action="removedor.php">
         <label for="removerMotoristas.php">Digite o ID que deseja excluir:</label>
         <input type="number" name="id" id="id" required>
         <button type="submit">Excluir</button>
