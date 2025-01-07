@@ -1,4 +1,4 @@
-<?php include __DIR__ . 'init.php'; ?>  
+ <?php include __DIR__ . 'init.php'; ?>  
 
 <!DOCTYPE html>
 <html lang="pt-br">

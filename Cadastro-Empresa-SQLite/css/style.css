@@ -1,6 +1,6 @@
 :root {
     --cor_div: aliceblue;
-    --cor_nav_itens: black;
+    --cor_nav_letra: black;
 }
 
 .navegacao_drivers {
@@ -10,8 +10,8 @@
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
 }
 
-.navegacao_drivers a {
-    display: contents;
+.navegacao_drivers li {
+    display: flex;
     justify-content: space-evenly;
     text-decoration: solid black;
     color: var(--cor_nav_itens);

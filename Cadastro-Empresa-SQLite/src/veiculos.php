@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciamento de Veículos</title>
     <link rel="shortcut icon" href="imagens/logistica.png">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/style_drivers.css">
+    <link rel="stylesheet" href="/css/style_table.css">
 </head>
 <body>
     <header class="header_veiculos">
@@ -39,15 +40,16 @@
             <label for="color"><strong>Cor:</strong></label>
             <input type="char(20)" id="color" name="cor" maxlength="20" required>
 
-            <button type="submit" href="sucesso.php">Adicionar Veículo</button>
+            <button type="submit">Adicionar Veículo</button>
         </form>
 
         <h3>Veículos Disponíveis</h3>
-        <table>
+        <table class="tabela">
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Placa</th>
+                    <th>Renavam</th>
                     <th>Modelo</th>
                     <th>Marca</th>
                     <th>Ano</th>
@@ -60,7 +62,7 @@
                     $stmt = $db->prepare("INSERT INTO veiculos (placa, renavam, modelo, marca, ano, cor) VALUES (?, ?, ?, ?, ?, ?)");
                     $stmt->execute([
                         $_POST['placa'],
-                        $_POST['ranavam'],
+                        $_POST['renavam'],
                         $_POST['modelo'],
                         $_POST['marca'],
                         $_POST['ano'],
@@ -73,6 +75,7 @@
                     echo "<tr>
                             <td>{$veiculo['id']}</td>
                             <td>{$veiculo['placa']}</td>
+                            <td>{$veiculo['renavam']}</td>
                             <td>{$veiculo['modelo']}</td>
                             <td>{$veiculo['marca']}</td>
                             <td>{$veiculo['ano']}</td>
@@ -83,7 +86,7 @@
             </tbody>
         </table>
     </main>
-    <footer class="footer.veiculos">
+    <footer class="footer">
         <p>&copy; Gerenciador de Riscos e Rotas - 2025</p>
     </footer>
 </body>

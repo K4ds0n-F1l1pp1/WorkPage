@@ -6,17 +6,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciamento de Motoristas</title>
-    <link rel="shortcut icon" href="imagens/logistica.png">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="shortcut icon" href="./imagens/logistica.png">
+    <link rel="stylesheet" href="/css/style_drivers.css">
+    <link rel="stylesheet" href="/css/style_table.css">
 </head>
 <body>
     <header class="header">
         <h1>Gerenciamento de Veículos</h1>
     <div class="navegacao_drivers">
         <nav>
-            <a href="/index.php">Home</a>
-            <a href="veiculos.php">Gerenciar Veículos</a>
-            <a href="reports.php">Reports</a>
+            <ul>
+                <li>
+                    <button onclick="location.href='/index.php'" type="button">
+                    Home</button>
+                </li>
+                <li>
+                    <button onclick="location.href='veiculos.php'" type="button">
+                    Gerenciar Veículos</button>
+                </li>
+                <li>
+                    <button onclick="location.href='reports.php'" type="button">
+                    Reports</button>
+                </li>
+            </ul>
         </nav>
     </div>
     </header>
@@ -26,58 +38,64 @@
             <label for="nome"><strong>Nome:</strong></label>
             <input type="text" id="nome" name="nome" maxlength="255"required>
 
-            <label for="cpf"><strong>CPF:</strong></label>
-            <input type="char(11)" id="cpf" name="cpf" maxlength="11" required>
-
             <label for="RG"><strong>RG:</strong></label>
             <input type="text" id="rg" name="rg" maxlength="20" required>
 
-            <label for="data_nascimento"><strong>Data de Nascimento:</strong></label>
-            <input type="date" id="data_nascimento" name="data_nascimento" required>
+            <label for="cpf"><strong>CPF:</strong></label>
+            <input type="char(11)" id="cpf" name="cpf" maxlength="11" required>
 
             <label for="telefone"><strong>Telefone:</strong></label>
             <input type="CHAR(20)" id="telefone" name="telefone" maxlength="20" required>
 
-            <button type="submit" href="sucesso.php">Adicionar Motorista</button>
+            <button type="submit">Adicionar Motorista</button>
+            
+            <a href="removerMotorista.php?id= <?= $drivers['id']; ?>" >Excluir</a>
         </form>
         <h3>Motoristas cadastrados</h3>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>CPF</th>
-                    <th>Data de Nascimento</th>
-                    <th>Telefone</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    $stmt = $db->prepare("INSERT INTO drivers (nome, cpf, data_nascimento, endereco, telefone) VALUES (?,?,?,?,?)");
-                    $stmt->execute([
-                        $_POST['nome'],
-                        $_POST['cpf'],
-                        $_POST['data_nascimento'],
-                        $_POST['telefone']
-                    ]);
-                }
+        <div class="tabela_top">
+            <table class="tabela">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>RG</th>
+                        <th>CPF</th>
+                        <th>Telefone</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                        $stmt = $db->prepare(query: "INSERT INTO drivers (nome, rg, cpf, telefone) VALUES (?,?,?,?)");
+                        $stmt->execute(params: [
+                            $_POST['nome'],
+                            $_POST['rg'],
+                            $_POST['cpf'],
+                            $_POST['telefone']
+                        ]);
+                    }
 
-                $drivers = $db->query('SELECT * FROM drivers')->fetchAll(PDO::FETCH_ASSOC);
-                foreach ($drivers as $motoristas) {
-                    echo "<tr>
-                            <td>{$motoristas['id']}</td>
-                            <td>{$motoristas['nome']}</td>
-                            <td>{$motoristas['cpf']}</td>
-                            <td>{$motoristas['data_nascimento']}</td>
-                            <td>{$motoristas['telefone']}</td>
-                          </tr>";
-                }
-                ?>
-            </tbody>
-        </table>
+                    $drivers = $db->query('SELECT * FROM drivers')->fetchAll(PDO::FETCH_ASSOC);
+                    foreach ($drivers as $motoristas) {
+                        echo "<tr>
+                                <td>{$motoristas['id']}</td>
+                                <td>{$motoristas['nome']}</td>
+                                <td>{$motoristas['rg']}</td>
+                                <td>{$motoristas['cpf']}</td>
+                                <td>{$motoristas['telefone']}</td>
+                            </tr>";
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </div>
     </main>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
     <footer class="footer">
         <p>&copy; Gerenciador de Riscos e Rotas - 2025</p>
     </footer>
