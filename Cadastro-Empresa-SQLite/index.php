@@ -10,8 +10,8 @@ $query = "
         drivers.rg AS drivers_rg, 
         drivers.cpf AS drivers_cpf, 
         drivers.telefone AS drivers_telefone, 
-        veiculos.modelo AS veiculo_model, 
-        veiculos.placa AS veiculo_plate 
+        veiculos.modelo AS veiculo_modelo, 
+        veiculos.placa AS veiculo_placa 
     FROM 
         drivers
     LEFT JOIN 
@@ -82,8 +82,8 @@ $results = $db->query($query)->fetchAll(PDO::FETCH_ASSOC);
                         <td><?= htmlspecialchars($row['drivers_rg']) ?></td>
                         <td><?= htmlspecialchars($row['drivers_cpf']) ?></td>
                         <td><?= htmlspecialchars($row['drivers_telefone'] ?: 'N/A') ?></td>
-                        <td><?= htmlspecialchars($row['veiculos_modelo'] ?: 'Sem Veículo') ?></td>
-                        <td><?= htmlspecialchars($row['veiculos_placa'] ?: 'N/A') ?></td>
+                        <td><?= htmlspecialchars($row['veiculo_modelo'] ?: 'Sem Veículo') ?></td>
+                        <td><?= htmlspecialchars($row['veiculo_placa'] ?: 'N/A') ?></td>
                     </tr>
                 <?php endforeach; ?>
             <?php else: ?>
