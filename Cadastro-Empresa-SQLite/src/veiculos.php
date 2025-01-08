@@ -22,7 +22,7 @@
                 </li>
                 <li>
                     <button onclick="location.href='drivers.php'" type="button">
-                    Gerenciar Veículos</button>
+                    Gerenciar Motoristas</button>
                 </li>
                 <li>
                     <button onclick="location.href='reports.php'" type="button">
@@ -99,11 +99,24 @@
             </tbody>
         </table>
     </main>
-    <form method="POST" action="removerVeiculo.php">
+    <br>
+    <form method="POST" action="removedorVeiculo.php">
         <label for="removerMotoristas.php">Digite o ID que deseja excluir:</label>
         <input type="number" name="id" id="id" required>
         <button type="submit">Excluir</button>
     </form>
+
+    <form method="POST" action="editar.php">
+        <label for="editar.php">Digite o ID que deseja editar:</label>
+        <input type="number" name="id" id="id" required>
+        <button type="submit"<?= $veiculo['id'] ?>>Editar</button>
+    </form>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
     <footer class="footer">
         <p>&copy; Gerenciador de Riscos e Rotas - 2025</p>
     </footer>

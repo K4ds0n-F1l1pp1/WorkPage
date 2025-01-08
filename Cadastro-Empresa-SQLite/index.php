@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="shortcut icon" href="imagens/caminhao-de-padaria.png">
+    <link rel="shortcut icon" href="src/imagens/caminhao-de-padaria.png">
     <title>Página Inicial</title>
 </head>
 <body>

@@ -568,3 +568,404 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "<p style='color: red;'>Erro ao acessar o banco de dados: " . $e->getMessage() . "</p>";
     }
 }
+
+///////////////////////////////////////////////////////////////////////////////
+
+<?php
+$db = new PDO('sqlite:db/database.sqlite');
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+$type = $_GET['type'] ?? null; // Tipo: driver ou vehicle
+$id = $_GET['id'] ?? null;
+
+if (!$type || !$id) {
+    die('Parâmetros inválidos!');
+}
+
+$data = null;
+
+if ($type === 'driver') {
+    $stmt = $db->prepare("SELECT * FROM drivers WHERE id = ?");
+    $stmt->execute([$id]);
+    $data = $stmt->fetch(PDO::FETCH_ASSOC);
+} elseif ($type === 'vehicle') {
+    $stmt = $db->prepare("SELECT * FROM veiculos WHERE id = ?");
+    $stmt->execute([$id]);
+    $data = $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+if (!$data) {
+    die('Registro não encontrado!');
+}
+
+// Atualizando os dados ao enviar o formulário
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if ($type === 'driver') {
+        $stmt = $db->prepare("
+            UPDATE drivers 
+            SET name = ?, rg = ?, cpf = ?, phone = ?, vehicle_id = ? 
+            WHERE id = ?
+        ");
+        $stmt->execute([
+            $_POST['name'],
+            $_POST['rg'],
+            $_POST['cpf'],
+            $_POST['phone'],
+            $_POST['vehicle_id'] ?: null,
+            $id
+        ]);
+    } elseif ($type === 'vehicle') {
+        $stmt = $db->prepare("
+            UPDATE veiculos 
+            SET placa = ?, renavam = ?, modelo = ?, marca = ?, ano = ?, cor = ? 
+            WHERE id = ?
+        ");
+        $stmt->execute([
+            $_POST['placa'],
+            $_POST['renavam'],
+            $_POST['modelo'],
+            $_POST['marca'],
+            $_POST['ano'],
+            $_POST['cor'],
+            $id
+        ]);
+    }
+    header("Location: index.php");
+    exit;
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar <?= htmlspecialchars($type) ?></title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Editar <?= htmlspecialchars($type === 'driver' ? 'Motorista' : 'Caminhão') ?></h1>
+    </header>
+    <main>
+        <form method="POST" class="edit-form">
+            <?php if ($type === 'driver'): ?>
+                <label for="name">Nome:</label>
+                <input type="text" name="name" id="name" value="<?= htmlspecialchars($data['name']) ?>" required>
+
+                <label for="rg">RG:</label>
+                <input type="text" name="rg" id="rg" value="<?= htmlspecialchars($data['rg']) ?>" required>
+
+                <label for="cpf">CPF:</label>
+                <input type="text" name="cpf" id="cpf" value="<?= htmlspecialchars($data['cpf']) ?>" required>
+
+                <label for="phone">Telefone:</label>
+                <input type="text" name="phone" id="phone" value="<?= htmlspecialchars($data['phone']) ?>">
+
+                <label for="vehicle_id">Caminhão:</label>
+                <select name="vehicle_id" id="vehicle_id">
+                    <option value="">Nenhum</option>
+                    <?php
+                    $vehicles = $db->query("SELECT * FROM veiculos")->fetchAll(PDO::FETCH_ASSOC);
+                    foreach ($vehicles as $vehicle): ?>
+                        <option value="<?= $vehicle['id'] ?>" <?= $data['vehicle_id'] == $vehicle['id'] ? 'selected' : '' ?>>
+                            <?= $vehicle['modelo'] ?> (<?= $vehicle['placa'] ?>)
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            <?php elseif ($type === 'vehicle'): ?>
+                <label for="placa">Placa:</label>
+                <input type="text" name="placa" id="placa" value="<?= htmlspecialchars($data['placa']) ?>" required>
+
+                <label for="renavam">Renavam:</label>
+                <input type="text" name="renavam" id="renavam" value="<?= htmlspecialchars($data['renavam']) ?>">
+
+                <label for="modelo">Modelo:</label>
+                <input type="text" name="modelo" id="modelo" value="<?= htmlspecialchars($data['modelo']) ?>" required>
+
+                <label for="marca">Marca:</label>
+                <input type="text" name="marca" id="marca" value="<?= htmlspecialchars($data['marca']) ?>" required>
+
+                <label for="ano">Ano:</label>
+                <input type="number" name="ano" id="ano" value="<?= htmlspecialchars($data['ano']) ?>" required>
+
+                <label for="cor">Cor:</label>
+                <input type="text" name="cor" id="cor" value="<?= htmlspecialchars($data['cor']) ?>" required>
+            <?php endif; ?>
+
+            <button type="submit">Salvar</button>
+        </form>
+    </main>
+    <footer>
+        <p>&copy; <?= date('Y') ?> Gerenciamento de Caminhões</p>
+    </footer>
+</body>
+</html>
+
+<tr>
+    <td><?= htmlspecialchars($relation['driver_name']) ?: 'Não atribuído' ?></td>
+    <td><?= htmlspecialchars($relation['vehicle_model']) ?: 'Nenhum caminhão' ?></td>
+    <td><?= htmlspecialchars($relation['vehicle_plate']) ?: 'N/A' ?></td>
+    <td>
+        <a href="edit.php?type=driver&id=<?= $relation['driver_id'] ?>">Editar Motorista</a> |
+        <a href="edit.php?type=vehicle&id=<?= $relation['vehicle_id'] ?>">Editar Caminhão</a>
+    </td>
+</tr>
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+<?php
+$db = new PDO('sqlite:db/database.sqlite');
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = $_POST['username'];
+    $password = password_hash($_POST['password'], PASSWORD_BCRYPT); // Hashear a senha
+
+    $stmt = $db->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
+    $stmt->execute([$username, $password]);
+
+    echo "Usuário cadastrado com sucesso!";
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Usuário</title>
+</head>
+<body>
+    <h1>Registrar Usuário</h1>
+    <form method="POST">
+        <label for="username">Usuário:</label>
+        <input type="text" name="username" id="username" required>
+        <br>
+        <label for="password">Senha:</label>
+        <input type="password" name="password" id="password" required>
+        <br>
+        <button type="submit">Registrar</button>
+    </form>
+</body>
+</html>
+3. Tela de Login
+Arquivo: login.php
+php
+Copiar código
+<?php
+session_start();
+
+$db = new PDO('sqlite:db/database.sqlite');
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    $stmt = $db->prepare("SELECT * FROM users WHERE username = ?");
+    $stmt->execute([$username]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($user && password_verify($password, $user['password'])) {
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['username'] = $user['username'];
+        header("Location: index.php");
+        exit;
+    } else {
+        $error = "Usuário ou senha incorretos.";
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <?php if (isset($error)): ?>
+        <p style="color: red;"><?= $error ?></p>
+    <?php endif; ?>
+    <form method="POST">
+        <label for="username">Usuário:</label>
+        <input type="text" name="username" id="username" required>
+        <br>
+        <label for="password">Senha:</label>
+        <input type="password" name="password" id="password" required>
+        <br>
+        <button type="submit">Entrar</button>
+    </form>
+</body>
+</html>
+4. Verificação de Autenticação
+Adicione um arquivo para verificar se o usuário está logado.
+
+Arquivo: auth.php
+php
+Copiar código
+<?php
+session_start();
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit;
+}
+?>
+
+/////////////////////////////////////////////////////////////////////
+
+5. Integrando Login com o Sistema
+Inclua o arquivo auth.php no topo das páginas que exigem autenticação.
+
+Exemplo no index.php:
+
+php
+Copiar código
+<?php
+require 'auth.php';
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Caminhões</title>
+</head>
+<body>
+    <header>
+        <h1>Bem-vindo, <?= htmlspecialchars($_SESSION['username']) ?>!</h1>
+        <a href="logout.php">Sair</a>
+    </header>
+    <!-- Conteúdo da página -->
+</body>
+</html>
+6. Logout
+Adicione uma página para encerrar a sessão do usuário.
+
+///////////////////////////////////////////////////////////////
+
+Arquivo: logout.php
+php
+Copiar código
+<?php
+session_start();
+session_destroy();
+header("Location: login.php");
+exit;
+?>
+
+<!-- <a href="editar_motoristas.php?id=<?= // $driver['id'] ?>">Editar</a> -->
+
+<?php
+$db = new PDO('sqlite:db/database.sqlite');
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+
+    // Buscar os dados do motorista
+    $stmt = $db->prepare("SELECT * FROM drivers WHERE id = ?");
+    $stmt->execute([$id]);
+    $driver = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$driver) {
+        echo "Motorista não encontrado.";
+        exit;
+    }
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id = $_POST['id'];
+    $name = $_POST['name'];
+    $rg = $_POST['rg'];
+    $cpf = $_POST['cpf'];
+    $phone = $_POST['phone'];
+    $vehicle_id = $_POST['vehicle_id'];
+
+    // Atualizar no banco de dados
+    $stmt = $db->prepare("UPDATE drivers SET name = ?, rg = ?, cpf = ?, phone = ?, vehicle_id = ? WHERE id = ?");
+    $stmt->execute([$name, $rg, $cpf, $phone, $vehicle_id, $id]);
+
+    header("Location: drivers_list.php");
+    exit;
+}
+
+// Buscar todos os veículos para exibição no dropdown
+$vehicles = $db->query("SELECT * FROM veiculos")->fetchAll(PDO::FETCH_ASSOC);
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Motorista</title>
+</head>
+<body>
+    <h1>Editar Motorista</h1>
+    <form method="POST">
+        <input type="hidden" name="id" value="<?= htmlspecialchars($driver['id']) ?>">
+        
+        <label for="name">Nome:</label>
+        <input type="text" name="name" id="name" value="<?= htmlspecialchars($driver['name']) ?>" required>
+        <br>
+        
+        <label for="rg">RG:</label>
+        <input type="text" name="rg" id="rg" value="<?= htmlspecialchars($driver['rg']) ?>" required>
+        <br>
+        
+        <label for="cpf">CPF:</label>
+        <input type="text" name="cpf" id="cpf" value="<?= htmlspecialchars($driver['cpf']) ?>" required>
+        <br>
+        
+        <label for="phone">Telefone:</label>
+        <input type="text" name="phone" id="phone" value="<?= htmlspecialchars($driver['phone']) ?>">
+        <br>
+        
+        <label for="vehicle_id">Caminhão:</label>
+        <select name="vehicle_id" id="vehicle_id">
+            <option value="">Nenhum</option>
+            <?php foreach ($vehicles as $vehicle): ?>
+                <option value="<?= $vehicle['id'] ?>" <?= $driver['vehicle_id'] == $vehicle['id'] ? 'selected' : '' ?>>
+                    <?= htmlspecialchars($vehicle['placa']) ?> (<?= htmlspecialchars($vehicle['modelo']) ?>)
+                </option>
+            <?php endforeach; ?>
+        </select>
+        <br>
+        
+        <button type="submit">Salvar</button>
+    </form>
+</body>
+</html>
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+<form id="form1" name="form1" method="post" action="<?php echo $PHP_SELF; ?>">
+        Lista de Motorista:
+        <select id="id" id="id">
+        <option value="">--- Select ---</option> 
+        <?  
+                $db = new PDO(dsn: 'sqlite:db/database.sqlite');
+                $select="drivers";  
+                if (isset ($select)&&$select!=""){
+                $select=$_POST ['NEW'];  
+                $stmt = $db->prepare("SELECT * FROM drivers WHERE id = ?");  
+            while($row_list= $driver = $stmt->fetch(PDO::FETCH_ASSOC));
+                ?>  
+                    <option value="<? echo $row_list['emp_id']; ?>"<? if($row_list['emp_id']==$select){ echo "selected"; } ?>>  
+                                         <?echo $row_list['emp_id'];?>  
+                    </option>  
+                <?
+                }
+                ?>  
+            </select>  
+            <input type="submit" name="Submit" value="Select" />  
+        </form>    
+        </select>
+    </form>
+
+<a href="editar.php?id=<?= $veiculo['id'] ?>">Editar</a>

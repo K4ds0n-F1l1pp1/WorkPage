@@ -93,6 +93,12 @@
         <input type="number" name="id" id="id" required>
         <button type="submit">Excluir</button>
     </form>
+
+    <form method="GET" action="editar_motoristas.php">
+        <label for="id">Digite o ID do motorista:</label>
+        <input type="number" name="id" id="id" required>
+        <button type="submit">Editar</button>
+    </form>
     </main>
     <br>
     <br>
