@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --cor_div: grey;
+    --cor_nav_letra: black;
+    --cor_nav_button: purple;
+    --cor_nav_button_hover: aliceblue;
+    --fonte_letras:"Ubuntu", serif; font-weight: 400;
+}
+
+button {
+    background-color: var(--cor_nav_button);
+    color: white;
+    border-radius: 16px;
+    font-size: 18px;
+    font-family: var(--fonte_letras);
+    width: 120px;
+    align-items: center;
+}
+
+button:hover {
+    background-color: var(--cor_nav_button_hover);
+    color: black;
+    transition: background-color 0.8s ease;
+    font-family: var(--fonte_letras);
+    cursor: pointer;
+}
+
+body {
+    background-color: black;
+    color: white;
+    font-family: var(--fonte_letras);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 16px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 3em;
+}
+
+label {
+    display: flex;
+    margin-left: 20px;
+    align-items: center;
+}
+
+input {
+    display: flex;
+    margin-left: 20px;
+    align-items: center;
+}
+
+.footer {
+    background-color: var(--cor_div);
+    color: var(--cor_nav_itens);
+    padding: 18px;
+    text-align: center;
+    font-family: var(--fonte_letras);
+    position: relative;
+    bottom: 0;
+    margin: 0%;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+    gap: 5px;
+}
