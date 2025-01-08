@@ -969,3 +969,263 @@ $vehicles = $db->query("SELECT * FROM veiculos")->fetchAll(PDO::FETCH_ASSOC);
     </form>
 
 <a href="editar.php?id=<?= $veiculo['id'] ?>">Editar</a>
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+<?php
+
+$db = new PDO('sqlite:db/database.sqlite');
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+
+    $stmt = $db->prepare("SELECT * FROM drivers WHERE id = ?");
+    $stmt->execute([$id]);
+    $drivers = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$drivers) {
+        echo "Motorista com ID $id não encontrado.";
+        exit;
+    }
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id = $_POST['id'];
+    $nome = $_POST['nome'];
+    $rg = $_POST['rg'];
+    $cpf = $_POST['cpf'];
+    $telefone = $_POST['telefone'];
+    $veiculo_id = $_POST['veiculo_id'];
+
+    $stmt = $db->prepare(query: "UPDATE drivers SET nome = ?, rg = ?, cpf = ?, telefone = ?, veiculo_id = ? WHERE id = ?");
+    $stmt->execute([$nome, $rg, $cpf, $telefone, $veiculo_id, $id]);
+
+    header("Location: drivers.php");
+    exit;
+}
+
+$veiculos = $db->query("SELECT * FROM veiculos")->fetchAll(PDO::FETCH_ASSOC);
+?>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style_editar.css">
+    <title>Editar Motorista</title>
+</head>
+<body>
+<header>
+        <nav class="navegacao">
+            <ul>
+                <li>
+                    <button onclick="location.href='/index.php'" type="button">
+                    Home</button>
+                </li>
+                <li>
+                    <button onclick="location.href='drivers.php'" type="button">
+                    Gerenciar Motoristas</button>
+                </li>
+                <li>
+                    <button onclick="location.href='reports.php'" type="button">
+                    Reports</button>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <h1>Editar Motorista</h1>
+    <form method="POST">
+        <input type="hidden" name="id" value="<?= htmlspecialchars($drivers['id']) ?>">
+        
+        <label for="nome">Nome:</label>
+        <input type="text" name="nome" id="nome" value="<?= htmlspecialchars($drivers['no    me']) ?>" required>
+        <br>
+        
+        <label for="rg">RG:</label>
+        <input type="text" name="rg" id="rg" value="<?= htmlspecialchars($drivers['rg']) ?>" required>
+        <br>
+        
+        <label for="cpf">CPF:</label>
+        <input type="text" name="cpf" id="cpf" value="<?= htmlspecialchars($drivers['cpf']) ?>" required>
+        <br>
+        
+        <label for="telefone">Telefone:</label>
+        <input type="text" name="telefone" id="telefone" value="<?= htmlspecialchars($drivers['telefone']) ?>">
+        <br>
+        
+        <label for="veiculo_id">ID do Caminhão:</label>
+        <input type="number" name="veiculo_id" id="veiculo_id" value="<?= htmlspecialchars($drivers['veiculo_id']) ?>">
+        <br>
+        
+        <button type="submit">Salvar</button>
+    </form>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <footer class="footer">
+        <p>&copy; Gerenciador de Riscos e Rotas - 2025</p>
+    </footer>
+</body>
+</html>
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+<?php
+// Configuração inicial
+$db = new PDO('sqlite:db/database.sqlite');
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+// Buscar motoristas e veículos
+$drivers = $db->query("SELECT * FROM drivers")->fetchAll(PDO::FETCH_ASSOC);
+$vehicles = $db->query("SELECT * FROM veiculos")->fetchAll(PDO::FETCH_ASSOC);
+
+// Verificar envio do formulário
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $driver_id = $_POST['driver_id'];
+    $vehicle_id = $_POST['vehicle_id'];
+
+    // Atualizar o motorista com o veículo selecionado
+    $stmt = $db->prepare("UPDATE drivers SET vehicle_id = ? WHERE id = ?");
+    $stmt->execute([$vehicle_id, $driver_id]);
+
+    echo "Motorista atualizado com sucesso!";
+    header("Refresh: 2; URL=link_driver_vehicle.php");
+    exit;
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ligar Motoristas aos Veículos</title>
+</head>
+<body>
+    <h1>Associar Motorista a Veículo</h1>
+
+    <form method="POST">
+        <label for="driver_id">Selecione o Motorista:</label>
+        <select name="driver_id" id="driver_id" required>
+            <option value="">Escolha um motorista</option>
+            <?php foreach ($drivers as $driver): ?>
+                <option value="<?= $driver['id'] ?>">
+                    <?= $driver['name'] ?> (ID: <?= $driver['id'] ?>)
+                </option>
+            <?php endforeach; ?>
+        </select>
+        <br><br>
+
+        <label for="vehicle_id">Selecione o Veículo:</label>
+        <select name="vehicle_id" id="vehicle_id" required>
+            <option value="">Escolha um veículo</option>
+            <?php foreach ($vehicles as $vehicle): ?>
+                <option value="<?= $vehicle['id'] ?>">
+                    <?= $vehicle['modelo'] ?> - <?= $vehicle['placa'] ?> (ID: <?= $vehicle['id'] ?>)
+                </option>
+            <?php endforeach; ?>
+        </select>
+        <br><br>
+
+        <button type="submit">Salvar Associação</button>
+    </form>
+</body>
+</html>
+
+////////////////////////////////////////////////////////////////////////////////////////////
+
+<?php
+// Configuração inicial
+$db = new PDO('sqlite:db/database.sqlite');
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+// Buscar motoristas e seus veículos
+$query = "
+    SELECT 
+        drivers.id AS driver_id, 
+        drivers.name AS driver_name, 
+        drivers.rg AS driver_rg, 
+        drivers.cpf AS driver_cpf, 
+        drivers.phone AS driver_phone, 
+        veiculos.modelo AS vehicle_model, 
+        veiculos.placa AS vehicle_plate 
+    FROM 
+        drivers
+    LEFT JOIN 
+        veiculos 
+    ON 
+        drivers.vehicle_id = veiculos.id
+";
+$results = $db->query($query)->fetchAll(PDO::FETCH_ASSOC);
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motoristas e Veículos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lista de Motoristas e Veículos</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID Motorista</th>
+                <th>Nome</th>
+                <th>RG</th>
+                <th>CPF</th>
+                <th>Telefone</th>
+                <th>Veículo</th>
+                <th>Placa</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php if (count($results) > 0): ?>
+                <?php foreach ($results as $row): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($row['driver_id']) ?></td>
+                        <td><?= htmlspecialchars($row['driver_name']) ?></td>
+                        <td><?= htmlspecialchars($row['driver_rg']) ?></td>
+                        <td><?= htmlspecialchars($row['driver_cpf']) ?></td>
+                        <td><?= htmlspecialchars($row['driver_phone'] ?: 'N/A') ?></td>
+                        <td><?= htmlspecialchars($row['vehicle_model'] ?: 'Sem Veículo') ?></td>
+                        <td><?= htmlspecialchars($row['vehicle_plate'] ?: 'N/A') ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="7">Nenhum motorista cadastrado.</td>
+                </tr>
+            <?php endif; ?>
+        </tbody>
+    </table>
+</body>
+</html>
