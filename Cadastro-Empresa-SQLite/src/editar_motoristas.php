@@ -43,6 +43,24 @@ $veiculos = $db->query("SELECT * FROM veiculos")->fetchAll(PDO::FETCH_ASSOC);
     <title>Editar Motorista</title>
 </head>
 <body>
+<header>
+        <nav class="navegacao">
+            <ul>
+                <li>
+                    <button onclick="location.href='/index.php'" type="button">
+                    Home</button>
+                </li>
+                <li>
+                    <button onclick="location.href='drivers.php'" type="button">
+                    Gerenciar Motoristas</button>
+                </li>
+                <li>
+                    <button onclick="location.href='reports.php'" type="button">
+                    Reports</button>
+                </li>
+            </ul>
+        </nav>
+    </header>
     <h1>Editar Motorista</h1>
     <form method="POST">
         <input type="hidden" name="id" value="<?= htmlspecialchars($drivers['id']) ?>">

@@ -39,9 +39,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style_editar.css">
     <title>Editar Veículos</title>
 </head>
 <body>
+    <header>
+        <nav class="navegacao">
+            <ul>
+                <li>
+                    <button onclick="location.href='/index.php'" type="button">
+                    Home</button>
+                </li>
+                <li>
+                    <button onclick="location.href='veiculos.php'" type="button">
+                    Gerenciar Veículos</button>
+                </li>
+                <li>
+                    <button onclick="location.href='reports.php'" type="button">
+                    Reports</button>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <br>
     <h1>Editar Veículo</h1>
     <form method="POST">
         <input type="hidden" name="id" value="<?= htmlspecialchars($vehicle['id']) ?>">
@@ -65,5 +85,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <br>
         <button type="submit">Salvar</button>
     </form>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <footer class="footer">
+        <p>&copy; Gerenciador de Riscos e Rotas - 2025</p>
+    </footer>
 </body>
 </html>

@@ -106,10 +106,10 @@
         <button type="submit">Excluir</button>
     </form>
 
-    <form method="POST" action="editar.php">
-        <label for="editar.php">Digite o ID que deseja editar:</label>
+    <form method="GET" action="editar.php">
+        <label for="id">Digite o ID do veículo:</label>
         <input type="number" name="id" id="id" required>
-        <button type="submit"<?= $veiculo['id'] ?>>Editar</button>
+        <button type="submit">Editar</button>
     </form>
 
     <br>
