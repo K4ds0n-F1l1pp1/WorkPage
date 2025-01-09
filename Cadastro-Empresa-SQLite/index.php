@@ -10,7 +10,7 @@ $query = "
         drivers.rg AS drivers_rg, 
         drivers.cpf AS drivers_cpf, 
         drivers.telefone AS drivers_telefone, 
-        veiculos.modelo AS veiculo_modelo, 
+        veiculos.modelo AS veiculo_modelo,  
         veiculos.placa AS veiculo_placa 
     FROM 
         drivers

@@ -1,0 +1,30 @@
+<div class="container-fluid"> <!-- Container-fluid sempre busca ocupar o máximo de espaço disponível na tela. -->
+    <div class="row bg-dark">
+        <div class="col bg-info text-dark"> <!-- col se refere ás colunas e row ás linhas. -->
+            <p>Central de Controle do Aluno</p>
+        </div> 
+    </div>
+    <div class="row bg-dark">
+        <div class="col bg-danger text-dark col-6"> <!-- O termo  "col-6" permite dizer quantos espaços de coluna a coluna ocupará. -->
+            <p>Estudante</p>
+        </div>
+    </div>
+    <div class="row bg-dark">
+        <div class="col bg-success text-dark">
+            <p>Kadson Willain Filippi</p>
+        </div>
+    </div>
+</div>
+
+/-----------------------------------------------------------------------------------------------------------------------------------\
+
+Para editar o padding, se usa "p-info". Para margin se usa "m-info". As escalas do Bootstrap são de 0 a 5.
+EX: <p class="display-1 bg-warning border border-dark border-3 m-5 p-3">Kadson Filippi</p>
+
+--> Para casos que queira apenas o padding, margin ou border em locais específicos, utilizá-se as primeiras letras das direções:
+>t = Top
+>b = Bottom
+>s = Start (no caso, left)
+>e = End (no caso, right)
+EX: <p class="display-1 bg-dark text-light border border-danger border-3 me-5 ps-5">Estudante do IFSC</p>
+(Esses itens funcionam no text, porém se usa o nome. EX: <p class="display-1 text-end>Olá Gurizes<\p>)
