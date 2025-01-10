@@ -1,9 +1,0 @@
-{
-  "manifest_version": 3,
-  "name": "24h Tab Switcher",
-  "version": "1.0",
-  "permissions": ["tabs", "alarms", "storage"],
-  "background": {
-    "service_worker": "background.js"
-  }
-}
