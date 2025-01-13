@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <!-- Meta tags Obrigatórias -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="shortcut icon" href="./img/icone_aba_index.png">
+    <title>Site de Resumo</title>
+  </head>
+  <body class="bg-secondary m-2">
+
+    <header class="mt-5">
+        <nav class="mt-5">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                <a class="nav-link active" href="index.html">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" style="color:black;" role="button" aria-haspopup="true" aria-expanded="false">Acesso</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Meu login</a>
+                    <a class="dropdown-item" href="#">Catálogo</a>
+                    <a class="dropdown-item" href="#">Inserir</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="https://github.com/K4ds0n-F1l1pp1">Github do site</a>
+                </div>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" style="color:black;" href="https://getbootstrap.com/" target="_blank">Link</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link disabled" href="#">Desativado</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="navbar navbar-light bg-light m-5 border border-dark">
+        <form class="form-inline p-2">
+            <div>
+                <input type="text" placeholder="Pesquise o resumo" class="form-control">
+                <button type="submit" class="btn btn-outline-dark">Pesquisar</button>
+            </div>
+        </form>
+    </div>
+
+    <main>
+        <div class="text-center text-light m-5 row">
+            <table class="table table-striped table-dark table-bordered table-hover col-8" style="width: 100%;">
+                <div class="btn-group-vertical row m-5">
+                    <div class="" style="width: 100%; display: flexbox; gap: 24px;">
+                        <a href="editar.html" class="btn btn-success">Editar</a>
+
+                        <a href="editar.html" class="btn btn-success">Editar</a>
+
+                        <a href="editar.html" class="btn btn-success">Editar</a>
+
+                        <a href="editar.html" class="btn btn-success">Editar</a>
+
+                        <a href="editar.html" class="btn btn-success">Editar</a>
+                    </div>
+                </div>
+                <thead> 
+                    <tr>
+                        <th>Título</th>
+                        <th>Autor</th>
+                        <th>Resumo</th>
+                        <th>Data</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Amazônia em chamas</td>
+                        <td>João Azevedo</td>
+                        <td>Lado ruim da floresta</td>
+                        <td>12/09/2019</td>
+                    </tr>
+                    <tr>
+                        <td>Matemática aplicada</td>
+                        <td>Mariliah Zenvo</td>
+                        <td>Tudo sobre a matemática do dia-a-dia</td>
+                        <td>30/01/2025</td>
+                    </tr>
+                    <tr>
+                        <td>Porque carros a combustão irão  se manter no mercado</td>
+                        <td>João Azevedo</td>
+                        <td>Ainda bem</td>
+                        <td>04/12/2017</td>
+                    </tr>
+                    <tr>
+                        <td>Amor e paixões</td>
+                        <td>Carlos Monteiro</td>
+                        <td>Tudo sobre relacionamentos</td>
+                        <td>17/09/2018</td>
+                    </tr>
+                    <tr>
+                        <td>Como fazer uma bomba nuclear em casa</td>
+                        <td>Jaqueline e Victor Buarts</td>
+                        <td>Rápido e fácil</td>
+                        <td>22/08/2020</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="bg-dark border border-3 m-5">
+            <p class="ml-4 mt-4" style="font-size: 36px; color: aliceblue;">Os mais lidos:</p>
+            <div class="row">
+                <div class="card m-5" style="width: 18rem;">
+                    <img class="card-img-top" src="./img/Brasil.png" alt="Imagem de capa do card">
+                    <div class="card-body">
+                    <h5 class="card-title">História do Brasil</h5>
+                    <p class="card-text">Um pequeno resumo de tudo que ocorreu nessa época.</p>
+                    <a href="#" class="btn btn-primary">Quero ler</a>
+                    </div>
+                </div>
+                <div class="card m-5" style="width: 18rem;">
+                    <img class="card-img-top" src="./img/Brasil.png" alt="Imagem de capa do card">
+                    <div class="card-body">
+                    <h5 class="card-title">Como o império Otomano caiu</h5>
+                    <p class="card-text">Porque um império tão poderoso despencou ??</p>
+                    <a href="#" class="btn btn-primary">Quero ler</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="text-light m-5 text-center">
+        <a href="inicio.html" class="m-1 btn btn-outline-light">Avaliar</a>
+        <p>Todos os direitos reservados &copy; 2025</p>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    
+    </body>
+</html>
