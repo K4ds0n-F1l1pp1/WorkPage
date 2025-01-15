@@ -69,3 +69,7 @@ O campo tamanho pode ser:
 4 - para usar a margin ou padding com valor de $spacer * 1.5;
 5 - para usar a margin ou padding com valor de $spacer * 3;
 auto - para usar a margin com valor de auto.
+
+/-----------------------------------------------------------------------------------------------------------------------------------\
+
+O ms-auto serve para aplicar uma margin automaticamente. O d-inline deixa os itens dispostos em linhe, desde que haja espaço.
