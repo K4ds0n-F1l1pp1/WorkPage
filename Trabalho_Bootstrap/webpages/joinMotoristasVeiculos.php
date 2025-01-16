@@ -1,5 +1,7 @@
 <?php
 
+include __DIR__ . '/../src/Cria_banco.php';
+
 $db = new PDO('sqlite:src/db/registros.sqlite');
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 

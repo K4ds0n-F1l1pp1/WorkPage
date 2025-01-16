@@ -1,5 +1,3 @@
-<?= include __DIR__ . "./webpages/join.php"?>
-
 <!doctype html>
 <html lang="pt-br">
 
@@ -9,14 +7,13 @@
     <link rel="shorcut icon" href="img/icone_aba_index.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="Styles/estilo_Index.css">
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css">
     <link rel="shortcut icon" href="./src/imagens/logistica-reversa.png">
     <title>Página inicial</title>
 </head>
 
 <body class="text-dark m-5" style="  background-color: #92a8d1;">
-    <container>
+    <section>
 
         <header class="form-control">
             <h1>Sistema de Gerenciamento de Rotas</h1>
@@ -34,11 +31,10 @@
                     <a class="navbar-brand" href="texto.html">Sobre a empresa</a>
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="index.php">Home</a>
+                            <a class="nav-link active" aria-current="page" href="../index.php">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="https://github.com/K4ds0n-F1l1pp1?tab=repositories"
-                                target="_blank">Diretório</a>
+                            <a class="nav-link" href="https://github.com/K4ds0n-F1l1pp1/WorkPage" target="_blank">Respositório do Site</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="src/inicial_page.php" tabindex="-1" aria-disabled="true">Sair</a>
@@ -52,38 +48,41 @@
                 <button class="btn btn-outline-success" type="submit">Pesquisar</button>
             </form>
         </nav>
-
-        <container class="m-5">
-            <main>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="card border border-3 border-dark" style="border-radius: 16px;">
-                            <div class="card-body">
-                                <h5 class="card-title">Gerenciar Motoristas</h5>
-                                <p class="card-text">Adicionar, editar, excluir Motoristas.</p>
-                                <a href="./src/motoristas.php" class="btn btn-primary">Ir para Gerenciamento de
-                                    Motoristas</a>
-                            </div>
+        <br>
+    </section>
+    <container class="m-5">
+        <main>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card border border-3 border-dark" style="border-radius: 16px;">
+                        <div class="card-body">
+                            <h5 class="card-title">Gerenciar Motoristas</h5>
+                            <p class="card-text">Adicionar, editar, excluir Motoristas.</p>
+                            <a href="./src/motoristas.php?menu=motoristas" class="btn btn-primary">Ir para Gerenciamento
+                                de
+                                Motoristas</a>
                         </div>
                     </div>
-                    <div class="col-sm-6">
-                        <div class="card border border-3 border-dark" style="border-radius: 16px;">
-                            <div class="card-body">
-                                <h5 class="card-title">Gerenciar Veículos</h5>
-                                <p class="card-text">Adicionar, editar, excluir veículos.</p>
-                                <a href="./src/veiculos.php" class="btn btn-primary">Ir para Gerenciamento de
-                                    Veículos</a>
-                            </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card border border-3 border-dark" style="border-radius: 16px;">
+                        <div class="card-body">
+                            <h5 class="card-title">Gerenciar Veículos</h5>
+                            <p class="card-text">Adicionar, editar, excluir veículos.</p>
+                            <a href="./src/veiculos.php" class="btn btn-primary">Ir para Gerenciamento de
+                                Veículos</a>
                         </div>
                     </div>
-        </container>
+                </div>
     </container>
+    </s>
 
     <!-- Eventos -->
     <div class="container-fluid">
         <div class="row col-12 m-3 p-2">
             <div class="col-6">
-                <h2 style="color: black;">Eventos Registrados</h2>
+                <h2 class="col-5" style="color: black;">Eventos Registrados</h2>
+                <img style="width: 24px; height: 24px; margin-right: 8px;" src="./src/imagens/calendario.png" alt="Flaticon">
             </div>
             <div class="align-items-center col-6">
                 <div class="text-end">
@@ -100,15 +99,6 @@
                             Editar Evento
                         </button></a>
                 </div>
-            </div>
-            <div class="card m-2" style="width: 18rem;">
-                <img src="src/imagens/noticia1.jpg" class="card-img-top" alt="Evento">
-                <div class="card-body">
-                </div>
-            </div>
-            <div class="card m-2" style="width: 18rem;">
-                <img src="/imagens/noticia2.jpg" class="card-img-top" alt="Evento">
-                <div class="card-body"></div>
             </div>
         </div>
     </div>
@@ -148,7 +138,7 @@
     <hr class="mt-3" style="height:16px;
     background:#000000;
     border:none;">
-    <div class="border border-4 border-success p-2">
+    <div>
         <table class="table table-striped table-dark border border-success">
             <thead>
                 <tr>
