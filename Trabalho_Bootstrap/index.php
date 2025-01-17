@@ -1,3 +1,6 @@
+<?= include __DIR__ .'/webpages/joinMotoristasVeiculos.php'; ?>
+<?= include __DIR__ . '/src/Cria_banco.php'; ?>
+
 <!doctype html>
 <html lang="pt-br">
 
@@ -34,10 +37,11 @@
                             <a class="nav-link active" aria-current="page" href="../index.php">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="https://github.com/K4ds0n-F1l1pp1/WorkPage" target="_blank">Respositório do Site</a>
+                            <a class="nav-link" href="https://github.com/K4ds0n-F1l1pp1/WorkPage"
+                                target="_blank">Respositório do Site</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="src/inicial_page.php" tabindex="-1" aria-disabled="true">Sair</a>
+                            <a class="nav-link" href="./webpages/inicial_page.php" tabindex="-1" aria-disabled="true">Sair</a>
                         </li>
                     </ul>
                 </div>
@@ -51,7 +55,6 @@
         <br>
     </section>
     <container class="m-5">
-        <main>
             <div class="row">
                 <div class="col-sm-6">
                     <div class="card border border-3 border-dark" style="border-radius: 16px;">
@@ -75,14 +78,16 @@
                     </div>
                 </div>
     </container>
-    </s>
 
     <!-- Eventos -->
     <div class="container-fluid">
         <div class="row col-12 m-3 p-2">
             <div class="col-6">
-                <h2 class="col-5" style="color: black;">Eventos Registrados</h2>
-                <img style="width: 24px; height: 24px; margin-right: 8px;" src="./src/imagens/calendario.png" alt="Flaticon">
+                <div class="row row-1 col-10">
+                    <h2 class="col-6" style="color: black;">Eventos Registrados</h2>
+                    <img class="col-4" style="width: 24px; height: 24px; margin-right: 8px;" src="./src/imagens/calendario.png"
+                    alt="Flaticon">
+                </div>
             </div>
             <div class="align-items-center col-6">
                 <div class="text-end">
@@ -101,6 +106,32 @@
                 </div>
             </div>
         </div>
+        <!-- <div class="row row-1 col-12">
+            <div class="col-12">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Data</th>
+                            <th scope="col">Hora</th>
+                            <th scope="col">Motivos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        // $sql = "SELECT * FROM eventos ORDER BY id DESC";
+                        // $result = mysqli_query($conn, $sql); 
+                        
+                        // foreach($eventos as $event) {
+                            //echo "<tr>";
+                            // echo "<td>". $event['id']. "</td>";
+                            //// echo "<td>". date(format: 'd/m/Y', timestamp: strtotime(datetime: $event['data'])). "</td>";
+                            // echo "<td>". date(format: 'H:i', timestamp: strtotime(datetime: $event['hora'])). "</td>";
+                            // echo "<td>". $event['motivos']. "</td>";
+                            // echo "</tr>";
+                    //}
+                ?>
+        </div> -->
     </div>
 
     <hr style="height:16px;
@@ -110,7 +141,7 @@
     <div class="col-3 align-items-center m-3" style="color: black">
         <iframe width="425" height="350"
             src="https://www.openstreetmap.org/export/embed.html?bbox=-92.08231794075603%2C-37.03003006562792%2C-21.59403669075602%2C-0.10033071715210662&amp;layer=mapnik"
-            style="border: 1px solid black"></iframe><br />
+            style="border: 1px solid black"></iframe><br /><br>
         <button class="btn btn-info border border-2 border-dark">
             <small><a style="color: black; text-decoration: none;"
                     href="https://www.openstreetmap.org/#map=5/-19.61/-56.84">Ver mapa ampliado</a></small>
@@ -149,6 +180,7 @@
                     <th>Telefone</th>
                     <th>Veículo</th>
                     <th>Placa</th>
+                    <th>Renavam</th>
                 </tr>
             </thead>
             <tbody>
@@ -176,6 +208,9 @@
                     <td>
                         <?= htmlspecialchars($row['veiculos_placa'] ?: 'N/A') ?>
                     </td>
+                    <td>
+                        <?= htmlspecialchars($row['veiculos_renavam'] ?: 'N/A') ?>
+                    </td>
                 </tr>
                 <?php endforeach; ?>
                 <?php else: ?>
@@ -187,20 +222,22 @@
         </table>
     </div>
 
+    <div>
+        <button onclick="location.href='./src/link_motorista.php'" class="btn btn-success">Vincular Motorista</button>
+    </div>
+    <br>
     <footer class="border border-3 border-dark mt-3 col-12 mb-0"
         style="border-radius: 16px; color: black; font-size: 18px; text-align: center;">
-        <container class="mb-0">
-            <div class="m-2 p-2 mb-0">
-                <h2>Contato</h2>
-                <p>Email: kadson.trafegus@trafegus.com.br</p>
-                <p>Telefone: (49) 9 8871-3527</p>
-                <p>Endereço: Rua da Liberdade, 34E</p>
-            </div>
-        </container>
+        <div class="m-2">
+            <h2>Contato</h2>
+            <p>Email: kadson.trafegus@trafegus.com.br</p>
+            <p>Telefone: (49) 9 8871-3527</p>
+            <p>Endereço: Rua da Liberdade, 34E</p>
+        </div>
     </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
 </body>
-
 </html>
