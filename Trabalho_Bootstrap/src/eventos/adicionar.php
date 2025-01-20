@@ -46,17 +46,6 @@
                 <?php endforeach; ?>
             </select>
         </div>
-        <div class="mb-3">
-            <label for="veiculos_id" class="form-label">Veículo:</label>
-            <select class="form-select" id="veiculos_id" name="veiculos_id" required>
-            <?php 
-                foreach ($veiculos as $veiculo): ?>
-                    <option value="<?= $veiculo['id'] ?>">
-                        <?= $veiculo['modelo'] ?> - <?= $veiculo['placa'] ?> (ID: <?= $veiculo['id']?>)
-                    </option>
-                <?php endforeach; ?>
-            </select>
-        </div>
         <button type="submit" name="add_evento" class="btn btn-primary">Salvar Evento</button>
         <a href="../../index.php" name="voltar" class="btn btn-primary">Voltar</a>
     </form>

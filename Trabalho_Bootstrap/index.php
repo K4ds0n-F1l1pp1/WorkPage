@@ -169,61 +169,78 @@
     <hr class="mt-3" style="height:16px;
     background:#000000;
     border:none;">
-    <div>
-        <table class="table table-striped table-dark border border-success">
-            <thead>
-                <tr>
-                    <th>ID Motorista</th>
-                    <th>Nome</th>
-                    <th>RG</th>
-                    <th>CPF</th>
-                    <th>Telefone</th>
-                    <th>Veículo</th>
-                    <th>Placa</th>
-                    <th>Renavam</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if (count($results) > 0): ?>
-                <?php foreach ($results as $row): ?>
-                <tr>
-                    <td>
-                        <?= htmlspecialchars($row['motoristas_id']) ?>
-                    </td>
-                    <td>
-                        <?= htmlspecialchars($row['motoristas_nome']) ?>
-                    </td>
-                    <td>
-                        <?= htmlspecialchars($row['motoristas_rg']) ?>
-                    </td>
-                    <td>
-                        <?= htmlspecialchars($row['motoristas_cpf']) ?>
-                    </td>
-                    <td>
-                        <?= htmlspecialchars($row['motoristas_telefone'] ?: 'N/A') ?>
-                    </td>
-                    <td>
-                        <?= htmlspecialchars($row['veiculos_modelo'] ?: 'Sem Veículo') ?>
-                    </td>
-                    <td>
-                        <?= htmlspecialchars($row['veiculos_placa'] ?: 'N/A') ?>
-                    </td>
-                    <td>
-                        <?= htmlspecialchars($row['veiculos_renavam'] ?: 'N/A') ?>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-                <?php else: ?>
-                <tr>
-                    <td colspan="7">Nenhum motorista cadastrado.</td>
-                </tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
+    <div class="bg-light border border-2 border-secondary" style="border-radius: 16px;">
+        <div class="mt-4">
+            <table class="table table-light border border-secondary table-hover">
+                <thead class="thead-light">
+                    <tr>
+                        <th>ID Motorista</th>
+                        <th>Nome</th>
+                        <th>RG</th>
+                        <th>CPF</th>
+                        <th>Telefone</th>
+                        <th>Veículo</th>
+                        <th>Placa</th>
+                        <th>Renavam</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if (count($results) > 0): ?>
+                    <?php foreach ($results as $row): ?>
+                    <tr>
+                        <td>
+                            <?= htmlspecialchars($row['motoristas_id']) ?>
+                        </td>
+                        <td>
+                            <?= htmlspecialchars($row['motoristas_nome']) ?>
+                        </td>
+                        <td>
+                            <?= htmlspecialchars($row['motoristas_rg']) ?>
+                        </td>
+                        <td>
+                            <?= htmlspecialchars($row['motoristas_cpf']) ?>
+                        </td>
+                        <td>
+                            <?= htmlspecialchars($row['motoristas_telefone'] ?: 'N/A') ?>
+                        </td>
+                        <td>
+                            <?= htmlspecialchars($row['veiculos_modelo'] ?: 'Sem Veículo') ?>
+                        </td>
+                        <td>
+                            <?= htmlspecialchars($row['veiculos_placa'] ?: 'N/A') ?>
+                        </td>
+                        <td>
+                            <?= htmlspecialchars($row['veiculos_renavam'] ?: 'N/A') ?>
+                        </td>
+                        <td>
+                            <a href="./src/motoristas/editar.php?id=<?= $row['motoristas_id']?>">
+                                <img src="./src/imagens/editar.png" alt="Editar"
+                                    style="width: 24px; height: 24px; margin-right: 8px;">
+                            </a>
+                            <a href="./src/motoristas/excluir.php?id=<?= $row['motoristas_id']?>">
+                                <img src="./src/imagens/excluir.png" alt="Excluir"
+                                    style="width: 24px; height: 24px; margin-right: 8px;">
+                            </a>
+                        </td>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                    <?php else: ?>
+                    <tr>
+                        <td colspan="7">Nenhum motorista cadastrado.</td>
+                    </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
     </div>
 
-    <div>
-        <button onclick="location.href='./src/link_motorista.php'" class="btn btn-success">Vincular Motorista</button>
+    <div class="mt-3">
+        <a href='./src/link_motorista.php'" class="btn btn-success">
+        <img src="./src/imagens/sinal-de-adicao.png"
+            style="width: 24px; height: 24px; margin-right: 8px;">
+        Vincular Motorista</a>
     </div>
     <br>
     <footer class="border border-3 border-dark mt-3 col-12 mb-0"

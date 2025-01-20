@@ -53,44 +53,46 @@
     <br>
     <h1>Veículos Cadatrados</h1>
     <section>
-        <form action="veiculos.php" method="POST" class="form-control mt-3">
-            <div class="container mt-4">
-                <div class="row">
+        <div class="border border-3 border-dark bg-light" style="border-radius: 16px;">
+            <form class="bg-light" action="veiculos.php" method="POST" class="form-control mt-3">
+                <div class="container mt-4">
+                    <div class="row">
 
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label class="form-label" for="placa">Placa:</label>
-                            <input type="text" id="placa" name="placa" maxlength="7" class="form-control" required>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label" for="placa">Placa:</label>
+                                <input type="text" id="placa" name="placa" maxlength="7" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="renavam">Renavam:</label>
+                                <input type="text" id="renavam" name="renavam" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="modelo">Modelo:</label>
+                                <input type="text" id="modelo" name="modelo" class="form-control" required>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="renavam">Renavam:</label>
-                            <input type="text" id="renavam" name="renavam" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="modelo">Modelo:</label>
-                            <input type="text" id="modelo" name="modelo" class="form-control" required>
-                        </div>
-                    </div>
 
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label class="form-label" for="marca">Marca:</label>
-                            <input type="text" id="marca" name="marca" maxlength="20" class="form-control" required>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label" for="marca">Marca:</label>
+                                <input type="text" id="marca" name="marca" maxlength="20" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="ano">Ano:</label>
+                                <input type="number" id="ano" name="ano" maxlength="4" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="cor">Cor:</label>
+                                <input type="text" id="cor" name="cor" maxlength="20" class="form-control" required>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="ano">Ano:</label>
-                            <input type="number" id="ano" name="ano" maxlength="4" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="cor">Cor:</label>
-                            <input type="text" id="cor" name="cor" maxlength="20" class="form-control" required>
-                        </div>
+                        <button class="btn btn-success" type="submit">Cadastrar</button>
                     </div>
-                    <button class="btn btn-outline-success" type="submit">Cadastrar</button>
                 </div>
-            </div>
 
-        </form>
+            </form>
+        </div>
     </section>
     <br>
     <div>
@@ -104,6 +106,7 @@
                     <th scope="col">Marca</th>
                     <th scope="col">Ano</th>
                     <th scope="col">Cor</th>
+                    <th scope="col">Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -129,7 +132,14 @@
                             <td>{$veiculo['modelo']}</td>
                             <td>{$veiculo['marca']}</td>
                             <td>{$veiculo['ano']}</td>
-                            <td>{$veiculo['cor']}</td>
+                            <td>{$veiculo['cor']}</td> 
+                          ";
+                          echo "
+                          <form METHOD="POST">
+                          <td>
+                                <a href='./Acoes/editar.php?id={$veiculos['id']}' class='btn btn-outline-success'>Editar</a>
+                                <a href='./Acoes/excluir.php?id={$veiculos['id']}' class='btn btn-outline-danger'>Deletar</a>
+                              </td>
                           </tr>";
                 }
                 ?>

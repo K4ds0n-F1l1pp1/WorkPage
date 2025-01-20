@@ -25,7 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $ano = $_POST['ano'];
     $cor = $_POST['cor'];
 
-    // Atualizar no banco de dados
     $stmt = $db->prepare("UPDATE veiculos SET placa = ?, renavam = ?, modelo = ?, marca = ?, ano = ?, cor = ? WHERE id = ?");
     $stmt->execute([$placa, $renavam, $modelo, $marca, $ano, $cor, $id]);
 

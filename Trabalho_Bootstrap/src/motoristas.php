@@ -79,6 +79,7 @@
                     <th scope="col">RG</th>
                     <th scope="col">CPF</th>
                     <th scope="col">Telefone</th>
+                    <th scope="col">Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -101,7 +102,12 @@
                                 <td>{$motora['rg']}</td>
                                 <td>{$motora['cpf']}</td>
                                 <td>{$motora['telefone']}</td>
-                            </tr>";
+                            ";
+                            echo "<td>
+                                <a href='./editarMoto.php?id={$motoristas['id']}' class='btn btn-outline-success'>Editar</a>
+                                <a href='./deletarMoto.php?id={$motoristas['id']}' class='btn btn-outline-danger'>Deletar</a>
+                              </td>
+                          </tr>";
                     }
                     ?>
             </tbody>
