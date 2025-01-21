@@ -106,32 +106,39 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="row row-1 col-12">
-            <div class="col-12">
-                <table class="table table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Data</th>
-                            <th scope="col">Hora</th>
-                            <th scope="col">Motivos</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        // $sql = "SELECT * FROM eventos ORDER BY id DESC";
-                        // $result = mysqli_query($conn, $sql); 
-                        
-                        // foreach($eventos as $event) {
-                            //echo "<tr>";
-                            // echo "<td>". $event['id']. "</td>";
-                            //// echo "<td>". date(format: 'd/m/Y', timestamp: strtotime(datetime: $event['data'])). "</td>";
-                            // echo "<td>". date(format: 'H:i', timestamp: strtotime(datetime: $event['hora'])). "</td>";
-                            // echo "<td>". $event['motivos']. "</td>";
-                            // echo "</tr>";
-                    //}
-                ?>
-        </div> -->
+
+        <div class="d-flex">
+            <div class="row col-3 m-3 p-2">
+                <div class="card">
+                    <h5 class="card-header">Evento</h5>
+                    <div class="card-body">
+                        <h5 class="card-title">Data:</h5>
+                        <p class="card-text">Motivo:</p>
+                        <a action="excluirEvento.php" class="btn btn-primary">Concluir</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row col-3 m-3 p-2">
+                <div class="card">
+                    <h5 class="card-header">Evento</h5>
+                    <div class="card-body">
+                        <h5 class="card-title">Data:</h5>
+                        <p class="card-text">Motivo:</p>
+                        <a action="excluirEvento.php" class="btn btn-primary">Concluir</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row col-3 m-3 p-2">
+                <div class="card">
+                    <h5 class="card-header">Evento</h5>
+                    <div class="card-body">
+                        <h5 class="card-title">Data:</h5>
+                        <p class="card-text">Motivo:</p>
+                        <a action="excluirEvento.php" class="btn btn-primary">Concluir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <hr style="height:16px;
@@ -214,11 +221,11 @@
                             <?= htmlspecialchars($row['veiculos_renavam'] ?: 'N/A') ?>
                         </td>
                         <td>
-                            <a href="./src/motoristas/editar.php?id=<?= $row['motoristas_id']?>">
+                            <a href="./src/motoristas/editarTudo.php?id=<?= $row['motoristas_id']?>">
                                 <img src="./src/imagens/editar.png" alt="Editar"
                                     style="width: 24px; height: 24px; margin-right: 8px;">
                             </a>
-                            <a href="./src/motoristas/excluir.php?id=<?= $row['motoristas_id']?>">
+                            <a href="./src/motoristas/excluirTudo.php?id=<?= $row['motoristas_id']?>">
                                 <img src="./src/imagens/excluir.png" alt="Excluir"
                                     style="width: 24px; height: 24px; margin-right: 8px;">
                             </a>
@@ -237,7 +244,7 @@
     </div>
 
     <div class="mt-3">
-        <a href='./src/link_motorista.php'" class="btn btn-success">
+        <a href='./src/link_motorista.php' class="btn btn-success">
         <img src="./src/imagens/sinal-de-adicao.png"
             style="width: 24px; height: 24px; margin-right: 8px;">
         Vincular Motorista</a>

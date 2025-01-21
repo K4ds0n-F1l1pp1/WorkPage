@@ -24,7 +24,7 @@
     <form method="POST" action="adicionar.php" class="mb-4">
         <h3>Adicionar Evento</h3>
 
-        <select class="form-select" aria-label="Default select example">
+        <select class="form-select" aria-label="Default select example">    
             <option selected>Selecione o motivo</option>
             <option value="1">Pausa</option>
             <option value="2">Acidente</option>
