@@ -1,22 +1,24 @@
 <?php
 
+include __DIR__ . '../db/registros.sqlite';
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+$linha = $_GET['linha'] ?? null;
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id = $_POST['id'];
-    $nome = $_POST['nome'];
-    $idade = $_POST['idade'];
+if ($linha) {
 
-    $pdo = new PDO('sqlite:' . __DIR__ . '/db/database.sqlite');
+    $veiculos = $db->query('SELECT * FROM veiculos')->fetchAll(PDO::FETCH_ASSOC);
 
-    if ($conn->connect_error) {
-        die("Conexão falhou: " . $conn->connect_error);
+    $veiculo = $veiculos[$linha - 1] ?? null;
+
+    if (!$veiculo) {
+        die('Veículo não encontrado.');
     }
 
-    $stmt = $conn->prepare("UPDATE tabela SET nome = ?, idade = ? WHERE id = ?");
-    $stmt->bind_param("sii", $nome, $idade, $id);
-    $stmt->execute();
+    $stmt = $db->prepare("DELETE FROM veiculos WHERE id = ?");
+    $stmt->execute([$veiculo['id']]);
 
-    $stmt->close();
-    $conn->close();
+    header('Location: ../veiculos.php');
+    exit();
 }
+?>

@@ -124,25 +124,25 @@
                 }
 
                 $veiculos = $db->query('SELECT * FROM veiculos')->fetchAll(PDO::FETCH_ASSOC);
-                foreach ($veiculos as $veiculo) {
-                    echo "<tr>
-                            <td>{$veiculo['id']}</td>
-                            <td>{$veiculo['placa']}</td>
-                            <td>{$veiculo['renavam']}</td>
-                            <td>{$veiculo['modelo']}</td>
-                            <td>{$veiculo['marca']}</td>
-                            <td>{$veiculo['ano']}</td>
-                            <td>{$veiculo['cor']}</td> 
-                          ";
-                          echo "
-                          <form METHOD="POST">
-                          <td>
-                                <a href='./Acoes/editar.php?id={$veiculos['id']}' class='btn btn-outline-success'>Editar</a>
-                                <a href='./Acoes/excluir.php?id={$veiculos['id']}' class='btn btn-outline-danger'>Deletar</a>
-                              </td>
-                          </tr>";
-                }
+
+                $linha = 0;
+                foreach ($veiculos as $veiculo):
+                    $linha++;
                 ?>
+                <tr>
+                    <td><?= $linha ?></td>
+                    <td><?= htmlspecialchars($veiculo['placa']) ?></td>
+                    <td><?= htmlspecialchars($veiculo['renavam']) ?></td>
+                    <td><?= htmlspecialchars($veiculo['modelo']) ?></td>
+                    <td><?= htmlspecialchars($veiculo['marca']) ?></td>
+                    <td><?= htmlspecialchars($veiculo['ano']) ?></td>
+                    <td><?= htmlspecialchars($veiculo['cor']) ?></td>
+                    <td>
+                        <a href="./Acoes/editar.php?linha=<?= $linha ?>" class="btn btn-outline-success">Editar</a>
+                        <a href="./Acoes/excluir.php?linha=<?= $linha ?>" class="btn btn-outline-danger">Deletar</a>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
             </tbody>
 
         </table>
