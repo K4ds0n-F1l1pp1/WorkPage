@@ -34,10 +34,10 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="veiculos.php"
-                                target="_blank">Gerenciar Veículos</a>
+                            >Gerenciar Veículos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="src/inicial_page.php" tabindex="-1" aria-disabled="true">Sair</a>
+                            <a class="nav-link" href="./eventos/adicionar.php" tabindex="-1" aria-disabled="true">Adicionar eventos</a>
                         </li>
                     </ul>
                 </div>
@@ -51,7 +51,7 @@
         <br>
     </section>
     <div>
-        <form action="motoristas.php" method="POST" class="form-control mt-3">
+        <form action="motoristas.php" method="POST" class="form-control mt-3 border border-3 border-dark" style="border-radius: 16px;">
 
             <label class="col-sm-1 col-form-label mt-2" for="nome">Nome:</label>
             <input type="text" id="nome" name="nome" maxlength="155" required><br><br>
@@ -95,21 +95,23 @@
                     }
 
                     $motoristas = $db->query('SELECT * FROM motoristas')->fetchAll(PDO::FETCH_ASSOC);
-                    foreach ($motoristas as $motora) {
-                        echo "<tr>
-                                <td>{$motora['id']}</td>
-                                <td>{$motora['nome']}</td>
-                                <td>{$motora['rg']}</td>
-                                <td>{$motora['cpf']}</td>
-                                <td>{$motora['telefone']}</td>
-                            ";
-                            echo "<td>
-                                <a href='./editarMoto.php?id={$motoristas['id']}' class='btn btn-outline-success'>Editar</a>
-                                <a href='./deletarMoto.php?id={$motoristas['id']}' class='btn btn-outline-danger'>Deletar</a>
-                              </td>
-                          </tr>";
-                    }
+
+                    $linha = 0;
+                    foreach ($motoristas as $motora):
+                        $linha++;
                     ?>
+                    <tr>
+                        <td><?= $linha ?></td>
+                        <td><?= htmlspecialchars($motora['nome']) ?></td>
+                        <td><?= htmlspecialchars($motora['rg']) ?></td>
+                        <td><?= htmlspecialchars($motora['cpf']) ?></td>
+                        <td><?= htmlspecialchars($motora['telefone']) ?></td>
+                        <td>
+                            <a href="./Acoes/editarMoto.php?linha=<?= $linha ?>" class="btn btn-outline-success">Editar</a>
+                            <a href="./Acoes/excluirMoto.php?linha=<?= $linha ?>" class="btn btn-outline-danger">Deletar</a>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
             </tbody>
         </table>
     </div>

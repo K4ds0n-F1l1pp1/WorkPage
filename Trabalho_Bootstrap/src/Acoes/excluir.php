@@ -1,6 +1,6 @@
 <?php
 
-include __DIR__ . '../db/registros.sqlite';
+$db = new PDO(dsn: 'sqlite:../db/registros.sqlite');
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 $linha = $_GET['linha'] ?? null;
