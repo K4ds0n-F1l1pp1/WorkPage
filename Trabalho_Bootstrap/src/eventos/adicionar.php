@@ -1,4 +1,4 @@
-<?= include __DIR__ . '/processa.php'; ?> 
+<?= include __DIR__ . '/processaEvento.php'; ?> 
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -16,14 +16,14 @@
 
     <div>
         <form>
-            <input type="date" class="form-control">
+            <input type="timestamp" class="form-control">
         </form>
     </div><br>
 
     <form method="POST" action="adicionar.php" class="mb-4">
         <h3>Adicionar Evento</h3>
 
-        <select class="form-select" aria-label="Default select example">    
+        <select class="form-select" aria-label="Default select example">
             <option selected>Selecione o motivo</option>
             <option value="1">Pausa</option>
             <option value="2">Acidente</option>
@@ -43,7 +43,7 @@
                             <?= $motora['nome'] ?> (ID: <?= $motora['id'] ?>)
                         </option>
                     <?php endforeach; ?>
-                </select>
+            </select>
         </div>
         <button type="submit" name="add_evento" class="btn btn-primary">Salvar Evento</button>
         <a href="../../index.php" name="voltar" class="btn btn-primary">Voltar</a>

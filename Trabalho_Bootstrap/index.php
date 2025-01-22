@@ -212,6 +212,9 @@
                         <td>
                             <?= htmlspecialchars($row['motoristas_nome'] ?: 'N/A') ?>
                         </td>
+                        <td>
+                            <?= htmlspecialchars($row['cidades_nome'] ?: 'N/A') ?>
+                        </td>
                     </tr>
                     <?php endforeach; ?>
                         <?php else: ?>
@@ -297,6 +300,24 @@
                     <?php endif; ?>
                 </tbody>
             </table>
+            <hr style="height:8px;
+                background:#000000;
+                border:none;">
+            <nav aria-label="...">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#" tabindex="-1" aria-current="page">Anterior</a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item active">
+                        <a class="page-link" href="#">2</a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">Próxima</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 
