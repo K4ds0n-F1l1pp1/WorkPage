@@ -1257,3 +1257,38 @@ $results = $db->query($query)->fetchAll(PDO::FETCH_ASSOC);
     </div>
   </div>
 </div>
+
+////////////////////////////////////////////////////////////////////////////////////////////
+
+<div class="d-flex">
+            <div class="row col-3 m-3 p-2">
+                <div class="card">
+                    <h5 class="card-header">Evento</h5>
+                    <div class="card-body">
+                        <h5 class="card-title">Data:</h5>
+                        <p class="card-text">Motivo:</p>
+                        <a action="excluirEvento.php" class="btn btn-primary">Concluir</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row col-3 m-3 p-2">
+                <div class="card">
+                    <h5 class="card-header">Evento</h5>
+                    <div class="card-body">
+                        <h5 class="card-title">Data:</h5>
+                        <p class="card-text">Motivo:</p>
+                        <a action="excluirEvento.php" class="btn btn-primary">Concluir</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row col-3 m-3 p-2">
+                <div class="card">
+                    <h5 class="card-header">Evento</h5>
+                    <div class="card-body">
+                        <h5 class="card-title">Data:</h5>
+                        <p class="card-text">Motivo:</p>
+                        <a action="excluirEvento.php" class="btn btn-primary">Concluir</a>
+                    </div>
+                </div>
+            </div>
+        </div>

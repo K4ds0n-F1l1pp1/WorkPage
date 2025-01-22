@@ -15,7 +15,7 @@
     <title>Página inicial</title>
 </head>
 
-<body class="text-dark m-5" style="  background-color: #92a8d1;">
+<body class="text-dark m-5" style="background-color: #7E5EF2;">
     <section>
 
         <header class="form-control">
@@ -106,39 +106,52 @@
                 </div>
             </div>
         </div>
-
-        <div class="d-flex">
-            <div class="row col-3 m-3 p-2">
-                <div class="card">
-                    <h5 class="card-header">Evento</h5>
-                    <div class="card-body">
-                        <h5 class="card-title">Data:</h5>
-                        <p class="card-text">Motivo:</p>
-                        <a action="excluirEvento.php" class="btn btn-primary">Concluir</a>
-                    </div>
-                </div>
-            </div>
-            <div class="row col-3 m-3 p-2">
-                <div class="card">
-                    <h5 class="card-header">Evento</h5>
-                    <div class="card-body">
-                        <h5 class="card-title">Data:</h5>
-                        <p class="card-text">Motivo:</p>
-                        <a action="excluirEvento.php" class="btn btn-primary">Concluir</a>
-                    </div>
-                </div>
-            </div>
-            <div class="row col-3 m-3 p-2">
-                <div class="card">
-                    <h5 class="card-header">Evento</h5>
-                    <div class="card-body">
-                        <h5 class="card-title">Data:</h5>
-                        <p class="card-text">Motivo:</p>
-                        <a action="excluirEvento.php" class="btn btn-primary">Concluir</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+    </div>
+    <div class="container-fluid">
+        <table class="table table-striped table-light table-border">
+            <thead class="table-dark">
+                <tr>
+                    <th></th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Data</th>
+                    <th scope="col">Motivo</th>
+                    <th scope="col">Motorista</th>
+                    <th scope="col">Placa</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php if (count($results) > 0): 
+            $linha = 0?>
+            <?php foreach ($results as $row): 
+                $linha++; ?>
+            <tr>
+                <td>
+                    <input class="form-check-input" type="checkbox">
+                </td>
+                <td>
+                    <?= htmlspecialchars($row['eventos']) ?>
+                </td>
+                <td>
+                    <?= htmlspecialchars($row['eventos_data']) ?>
+                </td>
+                <td>
+                    <?= htmlspecialchars($row['eventos_motivo']) ?>
+                </td>
+                <td>
+                    <?= htmlspecialchars($row['motoristas_nome'] ?: 'N/A') ?>
+                </td>
+                <td>
+                    <?= htmlspecialchars($row['veiculos_placa'] ?: 'N/A') ?>
+                </td>
+                    </tr>
+                        <?php endforeach; ?>
+                        <?php else: ?>
+                    <tr>
+                        <td colspan="7">Nenhum evento cadastrado.</td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
     </div>
 
     <hr style="height:16px;
@@ -162,13 +175,51 @@
             </div>
             <div class="align-items-center col-6">
                 <div class="text-end">
-                    <a href="./src/veiculos.php"><button type="submit"
+                    <a href="./src/vincularVeiculosTable.php"><button type="submit"
                             class="btn btn-primary align-items-center justify-content-center d-inline">
-                            <img src="./src/imagens/adicionar-botao.png" alt="Adicionar"
+                            <img src="./src/imagens/sinal-de-adicao.png" alt="Adicionar"
                                 style="width: 24px; height: 24px; margin-right: 8px;">
-                            Adicionar Veículo
+                            Vincular Veículo
                         </button></a>
                 </div>
+            </div>
+            <div class="row row-1 col-10">
+                <table class="table table-striped table-borderless">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th scope="col">Modelo</th>
+                            <th scope="col">Placa</th>
+                            <th scope="col">Motorista</th>
+                            <th scope="col">Cidade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php if (count($results) > 0): 
+                    $linha = 0?>
+                    <?php foreach ($results as $row): 
+                        $linha++; ?>
+                    <tr>
+                        <td>
+                            <input class="form-check-input" type="checkbox">
+                        </td>
+                        <td>
+                            <?= htmlspecialchars($row['veiculos_modelo'] ?: 'N/A') ?>
+                        </td>
+                        <td>
+                            <?= htmlspecialchars($row['veiculos_placa'] ?: 'N/A') ?>
+                        </td>
+                        <td>
+                            <?= htmlspecialchars($row['motoristas_nome'] ?: 'N/A') ?>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                        <?php else: ?>
+                    <tr>
+                        <td colspan="7">Nenhum evento cadastrado.</td>
+                    </tr>
+                <?php endif; ?> 
+                </table>
             </div>
         </div>
     </container>
@@ -178,9 +229,10 @@
     border:none;">
     <div class="bg-light border border-2 border-secondary" style="border-radius: 16px;">
         <div class="mt-4">
-            <table class="table table-light border border-secondary table-hover">
+            <table class="table table-light table-hover table-borderless">
                 <thead class="thead-light">
                     <tr>
+                        <th></th>
                         <th>ID Motorista</th>
                         <th>Nome</th>
                         <th>RG</th>
@@ -193,9 +245,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php if (count($results) > 0): ?>
-                    <?php foreach ($results as $row): ?>
+                    <?php if (count($results) > 0): 
+                        $linha = 0?>
+                    <?php foreach ($results as $row): 
+                        $linha++; ?>
                     <tr>
+                        <td>
+                            <input class="form-check-input" type="checkbox">
+                        </td>
                         <td>
                             <?= htmlspecialchars($row['motoristas_id']) ?>
                         </td>
@@ -264,4 +321,5 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
 </body>
+
 </html>

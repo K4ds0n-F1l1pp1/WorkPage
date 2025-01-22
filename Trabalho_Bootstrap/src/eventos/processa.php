@@ -13,7 +13,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $db->prepare("UPDATE motoristas SET veiculos_id = ? WHERE id = ?");
     $stmt->execute([$veiculos_id, $motoristas_id]);
 
-    echo "Motorista atualizado com sucesso!";
     header("Location: ../../index.php");
     exit;
 }

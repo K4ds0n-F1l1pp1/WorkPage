@@ -1,5 +1,4 @@
-<?= include __DIR__ . '/Cria_banco.php'; ?>
-<?= include __DIR__ . 'processa.php'; ?> 
+<?= include __DIR__ . '/processa.php'; ?> 
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -37,14 +36,14 @@
         <h3>Associar Motoristas e Veículos</h3>
         <div class="mb-3">
             <label for="motoristas_id" class="form-label">Motorista:</label>
-            <select class="form-select" id="motoristas_id" name="motoristas_id" required>
-                <?php
-                foreach ($motoristas as $motora): ?>
-                    <option value="<?= $motora['id'] ?>">
-                        <?= $motora['nome'] ?> - (ID: <?= $motora['id'] ?>)
-                    </option>
-                <?php endforeach; ?>
-            </select>
+            <select name="motoristas_id" id="motoristas_id" class="custom-select col-4" required>
+                    <option value="">Escolha um motorista</option>
+                    <?php foreach ($motoristas as $motora): ?>
+                        <option value="<?= $motora['id'] ?>">
+                            <?= $motora['nome'] ?> (ID: <?= $motora['id'] ?>)
+                        </option>
+                    <?php endforeach; ?>
+                </select>
         </div>
         <button type="submit" name="add_evento" class="btn btn-primary">Salvar Evento</button>
         <a href="../../index.php" name="voltar" class="btn btn-primary">Voltar</a>
